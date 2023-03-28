@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<launch>
+
+  <node name="talker" pkg="delf" type="talker.py" output="screen"/>
+  <node name="talker1" pkg="delf" type="talker1.py" output="screen"/>
+  <node name="talker2" pkg="delf" type="talker2.py" output="screen"/>
+  <node name="listener" pkg="delf" type="listener.py" output="screen"/>
+
+</launch>

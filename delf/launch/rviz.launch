@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<launch>
+  <param name="use_sim_time" value="true" />
+  <param name="gui" value="true" />
+  <param name="headless" value="false" />
+  <param name="debug" value="true" />
+
+
+  <param name="robot_description" command="cat '$(find delf)/urdf/m2wr2.xacro'"/>
+  <node name="urdf_spawner_2" pkg="gazebo_ros" type="spawn_model"
+    args="-file $(find delf)/urdf/m2wr2.urdf -urdf -x 0.0 -y 0.0 -z 0.0 -R 0.0 -P 0.0 -Y  0.0 -unpause -model m2wr2" respawn="false" output="screen">
+  </node>
+
+  <!-- send fake joint values -->
+  <node pkg="joint_state_publisher" type="joint_state_publisher"  name="joint_state_publisher_2">
+    <param name="use_gui" value="true" />
+  </node>
+
+  <node pkg="robot_state_publisher" type="robot_state_publisher"  name="robot_state_publisher_2">
+    <param name="publish_frequency" type="double" value="10.0" />
+  </node>
+  <node pkg="tf2_ros" type="static_transform_publisher" name="base_to_odom1" args="0.0 0.0 0.0 0.0 0.0 0.0 map odom " />
+  <node pkg="tf2_ros" type="static_transform_publisher" name="base_to_odom2" args="0.0 0.0 0.0 0.0 0.0 0.0 odom link_chassis1 " />
+  <node pkg="tf2_ros" type="static_transform_publisher" name="base_to_odom3" args="-0.05 -0.15 0 0.0 0.0 0.0 link_chassis1 link_left_wheel1 " />
+  <node pkg="tf2_ros" type="static_transform_publisher" name="base_to_odom4" args="-0.05 0.15 0 0.0 0.0 0.0 link_chassis1 link_right_wheel1 " />  <!-- Show in Rviz   -->
+  <node name="rviz" pkg="rviz" type="rviz" />
+  
+
+</launch>

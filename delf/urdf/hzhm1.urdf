@@ -1,0 +1,125 @@
+<?xml version="1.0"?>
+
+<robot name="hzhm1"  >
+<xacro:include filename="$(find model)/urdf/hzhm.xacro"/>
+  <!-- <xacro:macro name="inertial_matrix" params="mass">
+               <inertial>
+                       <mass value="${mass}" />
+                       <inertia ixx="0.5" ixy="0.0" ixz="0.0"
+                                iyy="0.5" iyz="0.0"
+                                izz="0.5" />
+               </inertial>
+	</xacro:macro>
+  <xacro:macro name= "blink" params="rar war sar">
+      <link name="base" >
+              <visual>
+                <geometry>
+                    <box size="${rar} ${war} ${sar}" />
+                </geometry>
+                <origin rpy="0 0 0" xyz="0 0  0" />
+
+              </visual>
+      </link>
+   </xacro:macro>
+
+  <xacro:macro name="m_joint" params="name type parent chi ">
+    <joint name="${name}" type="${type}">
+     <parent link="${parent}"/>
+     <child link="${chi}"/>
+     <axis xyz="1 0 0"/>
+     <origin xyz="-0.27 0.25 0.05"/>
+    </joint>
+  </xacro:macro>
+   <blink  rar="0.1" war="0.1" sar="0.5"/> -->
+ <link name="base">
+    <visual>
+      <geometry>
+        <box size=" 0.5 0.5 0.05"/>
+      </geometry>
+      <origin xyz="0 0 0.075" rpy="0 0 0"/>
+    </visual>
+    <inertial>
+       <mass value="1"/>
+       <inertia ixx="100"  ixy="0"  ixz="0" iyy="100" iyz="0" izz="100" />
+     </inertial>
+  </link>
+  <link name="leftw">
+    <inertial>
+       <mass value="1"/>
+       <inertia ixx="100"  ixy="0"  ixz="0" iyy="100" iyz="0" izz="100" />
+     </inertial>
+    <visual>
+      <geometry>
+          <cylinder length="0.02" radius="0.15"/>
+      </geometry>
+      <origin xyz="0 0 0" rpy="0 1.57 0"/>
+      <material name="blue">
+        <color rgba="0 1 0 1 "/>
+      </material>
+    </visual>
+  </link>
+  <link name="rightw">
+    <!-- <xacro:inertial_matrix mass="1"/> -->
+    <visual>
+      <geometry>
+          <cylinder length="0.02" radius="0.15"/>
+      </geometry>
+      <origin xyz="0 0 0" rpy="0 1.57 0"/>
+      <material name="blue">
+        <color rgba="0 1 0 1 "/>
+      </material>
+    </visual>
+  </link>
+  <joint name="ble" type="continuous">
+    <parent link="base"/>
+    <child link="leftw"/>
+    <axis xyz="1 0 0"/>
+    <origin xyz="0.27 0.25 0.05"/>
+  </joint>
+  <joint name="rle" type="continuous">
+    <parent link="base"/>
+    <child link="rightw"/>
+    <axis xyz="1 0 0"/>
+    <origin xyz="-0.27 0.25 0.05"/>
+  </joint>
+  <!-- <m_joint name="rle" type="continuous" parent="base" child="rightw"/> -->
+  <gazebo reference="base">
+    <material>Gazebo/Blue</material>
+  </gazebo>
+  <gazebo reference="rightw">
+    <material>Gazebo/Red</material>
+  </gazebo>
+  <gazebo reference="leftw">
+    <material>Gazebo/Red</material>
+  </gazebo>
+  <!--Laser-->
+  <!-- <link name="hokuyo_link">
+              <collision>
+                <origin xyz="0 0 0" rpy="0 0 0"/>
+                <geometry>
+              <box size="0.1 0.1 0.1"/>
+                </geometry>
+              </collision>
+
+              <visual>
+                <origin xyz="0 0 0" rpy="1.57 0 3.14"/>
+                <geometry>
+                  <mesh filename="package://myrobot/meshes/rplidar.dae"/>
+                </geometry>
+              </visual>
+
+              <inertial>
+                <mass value="1e-5" />
+                <inertia ixx="1e-6" ixy="0" ixz="0" iyy="1e-6" iyz="0" izz="1e-6" />
+              </inertial>
+            </link> -->
+
+ <!--Laser joint-->
+ <!-- <joint name="hokuyo_joint" type="fixed">
+              <origin xyz="-0.05 0 .325" rpy="0 0 0"/>
+              <parent link="base_link"/>
+              <child link="hokuyo_link"/>
+        </joint> -->
+
+
+</robot>
